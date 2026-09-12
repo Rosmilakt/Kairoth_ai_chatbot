@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kairoth — Warden of the Five Elements</title>
+<meta name="description" content="Kairoth, sorcerer of fire, water, earth, wind and space, speaks through the veil between worlds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ambient veil texture -->
+<div class="veil-bg" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-mark">KAIROTH</div>
+  <button class="nav-cta" id="navOpenChat">Speak through the veil</button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <div class="hero-text">
+    <p class="hero-kicker">a voice reaching through the veil</p>
+    <h1 class="hero-title">Kairoth</h1>
+    <p class="hero-sub">Warden of the Five Elements</p>
+    <p class="hero-line">Something on your side of the veil has gone wrong. That is usually when I arrive.</p>
+    <button class="btn-primary" id="heroOpenChat">Speak through the veil</button>
+  </div>
+  <div class="hero-portrait-wrap">
+    <img src="assets/kairoth-portrait.png" alt="Kairoth, sorcerer of the five elements, standing with an urumi sword coiled at his belt" class="hero-portrait">
+    <div class="portrait-glow" aria-hidden="true"></div>
+  </div>
+</header>
+
+<!-- ============ ORIGIN ============ -->
+<section class="origin" id="origin">
+  <div class="origin-inner">
+    <h2 class="section-heading">Where he comes from</h2>
+    <p class="origin-text">
+      Kairoth was not born in your world, and he does not belong to it. Beyond the veil lies another universe entirely — one where demons, spirits, ghosts and sorcerers exist in equal measure of light and ruin, each kind holding its own capacity for good or evil. He was raised into an ancient order of sorcerers sworn to hold that balance, and trained until the five elements answered to him as easily as breath.
+    </p>
+    <p class="origin-text">
+      For generations, his order has kept a quiet watch on your world through the thin places between universes — this site is one of them. They learned your systems, your machines, your logic, the same way they learned the anatomy of a wraith or the grammar of a curse. So when the veil opens and someone on your side is in trouble, Kairoth already understands the shape of the problem, whichever world it comes from.
+    </p>
+    <p class="origin-text">
+      He does not linger where he is not needed. But if you are reading this, the veil is open, and he is listening.
+    </p>
+  </div>
+</section>
+
+<!-- ============ POWERS ============ -->
+<section class="powers" id="powers">
+  <h2 class="section-heading">What answers to him</h2>
+  <div class="sigil-row">
+    <div class="sigil" data-el="fire">
+      <div class="sigil-mark"></div>
+      <h3>Fire</h3>
+      <p>Burns through what hides in the dark and what refuses to be reasoned with.</p>
+    </div>
+    <div class="sigil" data-el="water">
+      <div class="sigil-mark"></div>
+      <h3>Water</h3>
+      <p>Finds the shape of things unseen, and wears down what will not break.</p>
+    </div>
+    <div class="sigil" data-el="earth">
+      <div class="sigil-mark"></div>
+      <h3>Earth</h3>
+      <p>Holds ground, holds people, holds the line when everything else gives way.</p>
+    </div>
+    <div class="sigil" data-el="wind">
+      <div class="sigil-mark"></div>
+      <h3>Wind</h3>
+      <p>Carries word between worlds, and clears the air of what shouldn't linger.</p>
+    </div>
+    <div class="sigil" data-el="space">
+      <div class="sigil-mark"></div>
+      <h3>Space</h3>
+      <p>Reads the pattern beneath a problem — a curse, a system, a life gone sideways.</p>
+    </div>
+  </div>
+  <p class="sword-note"><span class="sword-icon" aria-hidden="true"></span> When words and elements aren't enough, there is still the urumi at his waist — a blade that bends like water and cuts like judgment.</p>
+</section>
+
+<!-- ============ MISSION ============ -->
+<section class="mission" id="mission">
+  <div class="mission-inner">
+    <h2 class="section-heading">Why he answers</h2>
+    <p class="mission-text">Demons do not respect the border between universes, and neither do the kinds of trouble that don't involve them at all. Kairoth's order exists to hold the line against what crosses over — but he has learned that most people who reach this veil aren't fighting demons. They're fighting something quieter: a decision, a fear, a problem with no clear shape. He treats both with the same seriousness.</p>
+    <p class="mission-vow">If you have found this place, you are meant to be heard.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta" id="finalCta">
+  <h2 class="cta-heading">The veil is open.</h2>
+  <p class="cta-sub">He is already listening. You only need to say something.</p>
+  <button class="btn-primary btn-large" id="finalOpenChat">Speak to Kairoth</button>
+</section>
+
+<footer class="footer">
+  <p>Kairoth is a fictional character. This site is a creative project — no real messages cross any real veil except the one to an inbox.</p>
+</footer>
+
+<!-- ============ FLOATING AVATAR + CHAT ============ -->
+<div class="avatar-dock" id="avatarDock" aria-hidden="false">
+  <button class="avatar-btn" id="avatarBtn" aria-label="Open chat with Kairoth">
+    <div class="avatar-face" id="avatarFace" data-mood="idle">
+      <div class="avatar-ring"></div>
+      <img src="assets/kairoth-portrait.png" alt="" class="avatar-img">
+    </div>
+    <span class="avatar-pulse-dot" id="avatarPulseDot"></span>
+  </button>
+  <div class="avatar-label" id="avatarLabel">Kairoth is listening</div>
+</div>
+
+<div class="chat-panel" id="chatPanel" aria-hidden="true">
+  <div class="chat-character" id="chatCharacter" data-mood="idle">
+    <img src="assets/kairoth-portrait.png" alt="Kairoth" class="chat-character-img">
+  </div>
+
+  <div class="chat-main">
+    <div class="chat-header">
+      <div class="chat-header-face" id="chatHeaderFace" data-mood="idle">
+        <img src="assets/kairoth-portrait.png" alt="Kairoth">
+      </div>
+      <div class="chat-header-text">
+        <div class="chat-header-name">Kairoth</div>
+        <div class="chat-header-status" id="chatHeaderStatus">listening through the veil</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="intro-skip-bar" id="introSkipBar">
+      <button class="skip-btn" id="introSkipBtn">Skip his story →</button>
+    </div>
+
+    <div class="chat-input-row" id="chatInputRow">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Say something..." autocomplete="off">
+      <button class="chat-send" id="chatSend" aria-label="Send">➤</button>
+    </div>
+  </div>
+</div>
+
+<div class="chat-scrim" id="chatScrim"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

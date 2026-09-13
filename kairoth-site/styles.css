@@ -315,22 +315,7 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
     brightness(1.03)
     drop-shadow(0 12px 30px rgba(0,0,0,0.6));
 }
-.chat-character::after{
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 200px 260px at 50% 30%, var(--el-glow, rgba(201,168,106,0.16)), transparent 70%);
-  transition:background 0.5s;
-  pointer-events:none;
-}
-.chat-character[data-mood="happy"]{ --el-glow: rgba(255,107,53,0.22); }
-.chat-character[data-mood="listening"]{ --el-glow: rgba(61,139,207,0.22); }
-.chat-character[data-mood="concerned"]{ --el-glow: rgba(135,82,201,0.26); }
-.chat-character[data-mood="reassuring"]{ --el-glow: rgba(107,143,78,0.22); }
-.chat-character[data-mood="thinking"]{ --el-glow: rgba(205,238,240,0.18); }
-.chat-character[data-mood="happy"]{ box-shadow:inset -3px 0 0 var(--fire); }
-.chat-character[data-mood="listening"]{ box-shadow:inset -3px 0 0 var(--water); }
-.chat-character[data-mood="concerned"]{ box-shadow:inset -3px 0 0 var(--space); }
-.chat-character[data-mood="reassuring"]{ box-shadow:inset -3px 0 0 var(--earth); }
-.chat-character[data-mood="thinking"]{ box-shadow:inset -3px 0 0 var(--wind); }
+.chat-character::after{ content:none; }
 
 .chat-main{
   flex:1; min-width:0;
@@ -453,11 +438,6 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
   section{ padding:64px 6vw; }
   .chat-panel{ width:100vw; flex-direction:column; }
   .chat-character{ flex:0 0 100px; border-right:none; border-bottom:1px solid rgba(201,168,106,0.15); }
-  .chat-character[data-mood="happy"]{ box-shadow:inset 0 -3px 0 var(--fire); }
-  .chat-character[data-mood="listening"]{ box-shadow:inset 0 -3px 0 var(--water); }
-  .chat-character[data-mood="concerned"]{ box-shadow:inset 0 -3px 0 var(--space); }
-  .chat-character[data-mood="reassuring"]{ box-shadow:inset 0 -3px 0 var(--earth); }
-  .chat-character[data-mood="thinking"]{ box-shadow:inset 0 -3px 0 var(--wind); }
   .chat-character-img{ height:180%; bottom:-30%; }
   .chat-main{ flex:1; min-height:0; }
   .avatar-dock{ right:16px; bottom:16px; }

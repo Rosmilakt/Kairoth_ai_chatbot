@@ -124,21 +124,11 @@ button{font-family:var(--sans); cursor:pointer;}
     saturate(1.12)
     contrast(1.05)
     brightness(1.03)
-    drop-shadow(0 20px 60px rgba(0,0,0,0.6))
-    drop-shadow(0 0 34px rgba(201,168,106,0.35));
+    drop-shadow(0 20px 60px rgba(0,0,0,0.6));
   position:relative; z-index:2;
   transform:translateX(6%);
 }
-.portrait-glow{
-  position:absolute; right:-14%; top:6%;
-  width:420px; height:420px; border-radius:50%;
-  background:
-    radial-gradient(circle at 45% 40%, rgba(255,150,90,0.22), transparent 55%),
-    radial-gradient(circle, rgba(201,168,106,0.28), transparent 70%);
-  z-index:1;
-  filter:blur(2px);
-  animation:glowPulse 5s ease-in-out infinite;
-}
+.portrait-glow{ display:none; }
 @keyframes glowPulse{ 0%,100%{opacity:0.65; transform:scale(1);} 50%{opacity:1; transform:scale(1.06);} }
 
 /* ============ SECTIONS SHARED ============ */

@@ -268,11 +268,11 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
 
 /* mood-based avatar tinting (idle/happy/listening/concerned/reassuring) */
 .avatar-face[data-mood="idle"]{ border-color:var(--gold); }
-.avatar-face[data-mood="happy"]{ border-color:var(--fire); box-shadow:0 0 22px rgba(255,107,53,0.4); }
-.avatar-face[data-mood="listening"]{ border-color:var(--water); box-shadow:0 0 22px rgba(61,139,207,0.4); }
-.avatar-face[data-mood="concerned"]{ border-color:var(--space); box-shadow:0 0 22px rgba(135,82,201,0.45); }
-.avatar-face[data-mood="reassuring"]{ border-color:var(--earth); box-shadow:0 0 22px rgba(107,143,78,0.4); }
-.avatar-face[data-mood="thinking"]{ border-color:var(--wind); }
+.avatar-face[data-mood="happy"]{ border-color:var(--gold); }
+.avatar-face[data-mood="listening"]{ border-color:var(--gold); }
+.avatar-face[data-mood="concerned"]{ border-color:var(--gold); }
+.avatar-face[data-mood="reassuring"]{ border-color:var(--gold); }
+.avatar-face[data-mood="thinking"]{ border-color:var(--gold); }
 
 /* ============ CHAT PANEL ============ */
 .chat-scrim{
@@ -347,11 +347,11 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
   border:2px solid var(--gold); transition:border-color 0.4s, box-shadow 0.4s;
 }
 .chat-header-face img{ width:100%; height:100%; object-fit:cover; object-position:top center; transform:scale(1.7) translateY(6%); filter:saturate(1.12) contrast(1.05) brightness(1.03); }
-.chat-header-face[data-mood="happy"]{ border-color:var(--fire); }
-.chat-header-face[data-mood="listening"]{ border-color:var(--water); }
-.chat-header-face[data-mood="concerned"]{ border-color:var(--space); }
-.chat-header-face[data-mood="reassuring"]{ border-color:var(--earth); }
-.chat-header-face[data-mood="thinking"]{ border-color:var(--wind); }
+.chat-header-face[data-mood="happy"]{ border-color:var(--gold); }
+.chat-header-face[data-mood="listening"]{ border-color:var(--gold); }
+.chat-header-face[data-mood="concerned"]{ border-color:var(--gold); }
+.chat-header-face[data-mood="reassuring"]{ border-color:var(--gold); }
+.chat-header-face[data-mood="thinking"]{ border-color:var(--gold); }
 .chat-header-text{ flex:1; }
 .chat-header-name{ font-family:var(--serif); font-size:1.1rem; color:var(--gold-bright); }
 .chat-header-status{ font-size:0.75rem; color:var(--text-dim); }

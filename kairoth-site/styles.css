@@ -316,6 +316,11 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
     drop-shadow(0 12px 30px rgba(0,0,0,0.6));
 }
 .chat-character::after{ content:none; }
+.chat-character[data-mood="happy"]{ box-shadow:inset -3px 0 0 var(--fire); }
+.chat-character[data-mood="listening"]{ box-shadow:inset -3px 0 0 var(--water); }
+.chat-character[data-mood="concerned"]{ box-shadow:inset -3px 0 0 var(--space); }
+.chat-character[data-mood="reassuring"]{ box-shadow:inset -3px 0 0 var(--earth); }
+.chat-character[data-mood="thinking"]{ box-shadow:inset -3px 0 0 var(--wind); }
 
 .chat-main{
   flex:1; min-width:0;
@@ -332,11 +337,11 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
   border:2px solid var(--gold); transition:border-color 0.4s, box-shadow 0.4s;
 }
 .chat-header-face img{ width:100%; height:100%; object-fit:cover; object-position:top center; transform:scale(1.7) translateY(6%); filter:saturate(1.12) contrast(1.05) brightness(1.03); }
-.chat-header-face[data-mood="happy"]{ border-color:var(--gold); }
-.chat-header-face[data-mood="listening"]{ border-color:var(--gold); }
-.chat-header-face[data-mood="concerned"]{ border-color:var(--gold); }
-.chat-header-face[data-mood="reassuring"]{ border-color:var(--gold); }
-.chat-header-face[data-mood="thinking"]{ border-color:var(--gold); }
+.chat-header-face[data-mood="happy"]{ border-color:var(--fire); }
+.chat-header-face[data-mood="listening"]{ border-color:var(--water); }
+.chat-header-face[data-mood="concerned"]{ border-color:var(--space); }
+.chat-header-face[data-mood="reassuring"]{ border-color:var(--earth); }
+.chat-header-face[data-mood="thinking"]{ border-color:var(--wind); }
 .chat-header-text{ flex:1; }
 .chat-header-name{ font-family:var(--serif); font-size:1.1rem; color:var(--gold-bright); }
 .chat-header-status{ font-size:0.75rem; color:var(--text-dim); }
@@ -438,6 +443,11 @@ section{ position:relative; z-index:1; padding:90px 6vw; }
   section{ padding:64px 6vw; }
   .chat-panel{ width:100vw; flex-direction:column; }
   .chat-character{ flex:0 0 100px; border-right:none; border-bottom:1px solid rgba(201,168,106,0.15); }
+  .chat-character[data-mood="happy"]{ box-shadow:inset 0 -3px 0 var(--fire); }
+  .chat-character[data-mood="listening"]{ box-shadow:inset 0 -3px 0 var(--water); }
+  .chat-character[data-mood="concerned"]{ box-shadow:inset 0 -3px 0 var(--space); }
+  .chat-character[data-mood="reassuring"]{ box-shadow:inset 0 -3px 0 var(--earth); }
+  .chat-character[data-mood="thinking"]{ box-shadow:inset 0 -3px 0 var(--wind); }
   .chat-character-img{ height:180%; bottom:-30%; }
   .chat-main{ flex:1; min-height:0; }
   .avatar-dock{ right:16px; bottom:16px; }

@@ -8,7 +8,7 @@ const EMAILJS_SERVICE_ID = "service_27o4k5x";
 const EMAILJS_TEMPLATE_ID = "template_clzasba";
 
 // Initialize EmailJS (safe no-op if key not yet filled in)
-if (window.emailjs && EMAILJS_PUBLIC_KEY !== "5NONtaC_EAl8RwY_p") {
+if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
   emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 }
 

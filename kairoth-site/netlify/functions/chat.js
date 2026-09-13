@@ -56,8 +56,9 @@ exports.handler = async function (event) {
           { role: 'user', parts: [{ text: message }] }
         ],
         generationConfig: {
-          maxOutputTokens: 200,
-          temperature: 0.9
+          maxOutputTokens: 300,
+          temperature: 0.9,
+          thinkingConfig: { thinkingBudget: 0 }
         }
       })
     });

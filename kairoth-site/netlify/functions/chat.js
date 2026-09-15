@@ -12,7 +12,7 @@ Rules:
 - If someone describes something serious (self-harm, abuse, crisis), respond with genuine warmth and gently encourage them to also reach real-world help, without being preachy or breaking character.`;
 
 // Use a reliable stable model name
-const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_MODEL = 'gemini-1.5-flash';
 
 exports.handler = async function (event) {
   if (event.httpMethod !== 'POST') {

@@ -3,9 +3,9 @@
 // ============================================================
 
 // ---- CONFIG: fill these in from your EmailJS dashboard ----
-const EMAILJS_PUBLIC_KEY = "5NONtaC_EAl8RwY_p";
-const EMAILJS_SERVICE_ID = "service_27o4k5x";
-const EMAILJS_TEMPLATE_ID = "template_clzasba";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
 // Initialize EmailJS (safe no-op if key not yet filled in)
 if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
@@ -27,6 +27,9 @@ const chatInputRow = document.getElementById('chatInputRow');
 const chatHeaderFace = document.getElementById('chatHeaderFace');
 const chatHeaderStatus = document.getElementById('chatHeaderStatus');
 const chatCharacter = document.getElementById('chatCharacter');
+const chatCharacterImg = document.getElementById('chatCharacterImg');
+const avatarImg = document.getElementById('avatarImg');
+const chatHeaderImg = document.getElementById('chatHeaderImg');
 const introSkipBar = document.getElementById('introSkipBar');
 const introSkipBtn = document.getElementById('introSkipBtn');
 
@@ -43,6 +46,37 @@ function setMood(mood, statusText) {
   chatHeaderFace.setAttribute('data-mood', mood);
   chatCharacter.setAttribute('data-mood', mood);
   if (statusText) chatHeaderStatus.textContent = statusText;
+  updateCharacterPose(mood);
+}
+
+// ---- POSE SWAPPING ----
+// Swaps his portrait everywhere he appears (floating avatar, chat header,
+// and the big half-body panel) based on his current mood, with a quick
+// crossfade so the change reads as a reaction rather than a glitch.
+const moodImages = {
+  idle: 'assets/kairoth-portrait.png',
+  listening: 'assets/kairoth-portrait.png',
+  happy: 'assets/kairoth-happy.png',
+  concerned: 'assets/kairoth-concerned.png',
+  reassuring: 'assets/kairoth-reassuring.png',
+  thinking: 'assets/kairoth-thinking.png'
+};
+
+function crossfadeImage(imgEl, newSrc) {
+  if (!imgEl || imgEl.getAttribute('src') === newSrc) return;
+  imgEl.style.transition = imgEl.style.transition || 'opacity 0.22s ease';
+  imgEl.style.opacity = '0';
+  setTimeout(() => {
+    imgEl.setAttribute('src', newSrc);
+    imgEl.style.opacity = '1';
+  }, 220);
+}
+
+function updateCharacterPose(mood) {
+  const chosen = moodImages[mood] || moodImages.idle;
+  crossfadeImage(chatCharacterImg, chosen);
+  crossfadeImage(avatarImg, chosen);
+  crossfadeImage(chatHeaderImg, chosen);
 }
 
 // ---- OPEN / CLOSE CHAT ----

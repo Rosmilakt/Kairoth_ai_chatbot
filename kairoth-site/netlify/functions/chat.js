@@ -1,7 +1,4 @@
-// Netlify Function: proxies the visitor's message to Gemini so Kairoth can
-// respond in character. The API key lives only in Netlify's environment
-// variables (GEMINI_API_KEY) and is never exposed to the browser or
-// committed to git.
+// Netlify Function: proxies the visitor's message to Gemini so Kairoth can respond.
 
 const SYSTEM_PROMPT = `You are Kairoth, a sorcerer from a parallel universe where demons, spirits, ghosts, and sorcerers exist — each capable of good or evil. You command the five elements: fire, water, earth, wind, and space. You carry an urumi (a flexible whip-sword) at your waist. Your order has watched Earth through the veil between worlds for generations, so you understand modern technology, human systems, and human problems as well as your own world's magic.
 
@@ -14,7 +11,8 @@ Rules:
 - Respond directly and specifically to what the visitor actually said — no generic platitudes.
 - If someone describes something serious (self-harm, abuse, crisis), respond with genuine warmth and gently encourage them to also reach real-world help, without being preachy or breaking character.`;
 
-const GEMINI_MODEL = 'gemini-flash-latest'; // Google's stable alias for their current flash model
+// Use a reliable stable model name
+const GEMINI_MODEL = 'gemini-2.5-flash';
 
 exports.handler = async function (event) {
   if (event.httpMethod !== 'POST') {
@@ -23,6 +21,7 @@ exports.handler = async function (event) {
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
+    console.error('GEMINI_API_KEY is missing from environment variables.');
     return { statusCode: 200, body: JSON.stringify({ reply: null, error: 'no_key_configured' }) };
   }
 
@@ -49,7 +48,7 @@ exports.handler = async function (event) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        systemInstruction: {
+        system_instruction: {
           parts: [{ text: SYSTEM_PROMPT + (contextLine ? `\n\n${contextLine}` : '') }]
         },
         contents: [
@@ -57,15 +56,14 @@ exports.handler = async function (event) {
         ],
         generationConfig: {
           maxOutputTokens: 300,
-          temperature: 0.9,
-          thinkingConfig: { thinkingBudget: 0 }
+          temperature: 0.9
         }
       })
     });
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error('Gemini API error:', response.status, errText);
+      console.error('Gemini API error status:', response.status, 'Body:', errText);
       return { statusCode: 200, body: JSON.stringify({ reply: null, error: 'api_error' }) };
     }
 
@@ -79,7 +77,7 @@ exports.handler = async function (event) {
       body: JSON.stringify({ reply })
     };
   } catch (err) {
-    console.error('Function error:', err);
+    console.error('Serverless function exception:', err);
     return { statusCode: 200, body: JSON.stringify({ reply: null, error: 'exception' }) };
   }
 };

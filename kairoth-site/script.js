@@ -3,9 +3,9 @@
 // ============================================================
 
 // ---- CONFIG: fill these in from your EmailJS dashboard ----
-const EMAILJS_PUBLIC_KEY = "5NONtaC_EAl8RwY_p";
-const EMAILJS_SERVICE_ID = "service_27o4k5x";
-const EMAILJS_TEMPLATE_ID = "template_clzasba";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
 // Initialize EmailJS (safe no-op if key not yet filled in)
 if (window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
@@ -52,15 +52,19 @@ function setMood(mood, statusText) {
 // ---- POSE SWAPPING ----
 // Swaps his portrait everywhere he appears (floating avatar, chat header,
 // and the big half-body panel) based on his current mood, with a quick
-// crossfade so the change reads as a reaction rather than a glitch.
+// crossfade so the change reads as a reaction rather than a glitch. Moods
+// with more than one image pick randomly (never the same one twice in a
+// row) so he doesn't strike the exact same pose every single time.
 const moodImages = {
-  idle: 'assets/kairoth-portrait.png',
-  listening: 'assets/kairoth-portrait.png',
-  happy: 'assets/kairoth-happy.png',
-  concerned: 'assets/kairoth-concerned.png',
-  reassuring: 'assets/kairoth-reassuring.png',
-  thinking: 'assets/kairoth-thinking.png'
+  idle: ['assets/kairoth-portrait.png'],
+  listening: ['assets/kairoth-portrait.png'],
+  happy: ['assets/kairoth-happy.png', 'assets/kairoth-listening.png'],
+  concerned: ['assets/kairoth-concerned.png'],
+  reassuring: ['assets/kairoth-reassuring.png'],
+  thinking: ['assets/kairoth-thinking.png']
 };
+
+let lastPoseSrc = null;
 
 function crossfadeImage(imgEl, newSrc) {
   if (!imgEl || imgEl.getAttribute('src') === newSrc) return;
@@ -73,7 +77,15 @@ function crossfadeImage(imgEl, newSrc) {
 }
 
 function updateCharacterPose(mood) {
-  const chosen = moodImages[mood] || moodImages.idle;
+  const options = moodImages[mood] || moodImages.idle;
+  let chosen = options[Math.floor(Math.random() * options.length)];
+
+  // Avoid picking the exact same pose twice in a row when there's a choice
+  if (options.length > 1 && chosen === lastPoseSrc) {
+    chosen = options.find(src => src !== lastPoseSrc) || chosen;
+  }
+  lastPoseSrc = chosen;
+
   crossfadeImage(chatCharacterImg, chosen);
   crossfadeImage(avatarImg, chosen);
   crossfadeImage(chatHeaderImg, chosen);
@@ -491,3 +503,17 @@ setInterval(() => {
   idleIdx = (idleIdx + 1) % idleLines.length;
   avatarLabel.textContent = idleLines[idleIdx];
 }, 4000);
+
+// ---- SCROLL REVEAL ----
+// Fades/slides sections into view as the visitor scrolls down the landing
+// page. Each element reveals once, then stops being observed.
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));

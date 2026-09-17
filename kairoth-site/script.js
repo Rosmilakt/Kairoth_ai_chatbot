@@ -91,6 +91,46 @@ function updateCharacterPose(mood) {
   crossfadeImage(chatHeaderImg, chosen);
 }
 
+// ---- SESSION PERSISTENCE ----
+// Keeps the intro from replaying on every page, and keeps the conversation
+// itself alive when the visitor navigates between pages (Home / Chronicle /
+// Powers). Uses sessionStorage, so it clears when the tab closes rather
+// than persisting forever like localStorage would.
+const SESSION_KEY = 'kairoth_session_v1';
+const INTRO_SEEN_KEY = 'kairoth_intro_seen';
+
+function saveSession() {
+  try {
+    const transcript = Array.from(chatMessages.querySelectorAll('.msg.kairoth, .msg.user')).map(el => ({
+      sender: el.classList.contains('user') ? 'user' : 'kairoth',
+      text: el.textContent
+    }));
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+      visitor,
+      transcript,
+      completed: postFlowMode
+    }));
+  } catch (e) { /* sessionStorage unavailable — fail silently, chat still works */ }
+}
+
+function loadSession() {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+function restoreSession(saved) {
+  Object.assign(visitor, saved.visitor);
+  saved.transcript.forEach(m => addMessage(m.text, m.sender, { skipSave: true }));
+  postFlowMode = true;
+  chatStarted = true;
+  setMood('reassuring', 'here with you');
+  chatInput.disabled = false;
+  chatSend.disabled = false;
+  chatInput.placeholder = "Anything else...";
+}
+
 // ---- OPEN / CLOSE CHAT ----
 let chatStarted = false;
 
@@ -99,8 +139,13 @@ function openChat() {
   chatScrim.classList.add('active');
   chatPanel.setAttribute('aria-hidden', 'false');
   if (!chatStarted) {
-    chatStarted = true;
-    startConversation();
+    const saved = loadSession();
+    if (saved && saved.completed) {
+      restoreSession(saved);
+    } else {
+      chatStarted = true;
+      startConversation();
+    }
   }
   setTimeout(() => chatInput.focus(), 400);
 }
@@ -120,19 +165,27 @@ chatScrim.addEventListener('click', closeChat);
 
 // ---- AUTO-OPEN ON ENTRY ----
 // The brief requires the superhero to appear as soon as someone enters the
-// site, so we open the chat automatically shortly after load (giving the
-// hero entrance animation a moment to land first).
+// site, so we open the chat automatically shortly after load — but only
+// the first time in this browsing session, so navigating between pages
+// doesn't keep re-triggering it.
 window.addEventListener('load', () => {
-  setTimeout(() => { openChat(); }, 1400);
+  let alreadySeen = false;
+  try { alreadySeen = sessionStorage.getItem(INTRO_SEEN_KEY) === 'true'; } catch (e) {}
+  if (alreadySeen) return;
+  setTimeout(() => {
+    openChat();
+    try { sessionStorage.setItem(INTRO_SEEN_KEY, 'true'); } catch (e) {}
+  }, 1400);
 });
 
 // ---- MESSAGE RENDERING ----
-function addMessage(text, sender = 'kairoth') {
+function addMessage(text, sender = 'kairoth', opts = {}) {
   const div = document.createElement('div');
   div.className = `msg ${sender}`;
   div.textContent = text;
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+  if (!opts.skipSave) saveSession();
   return div;
 }
 
@@ -354,6 +407,7 @@ async function handleGrievanceResponse(text) {
   chatSend.disabled = false;
   chatInput.placeholder = "Anything else...";
   chatInput.focus();
+  saveSession();
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
